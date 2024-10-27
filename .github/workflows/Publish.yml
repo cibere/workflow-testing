@@ -36,4 +36,5 @@ jobs:
           files: 'data.json'
           tag_name: "v${{steps.version.outputs.prop}}"
           body_path: 'CHANGELOG.txt'
-          token: ${{ secrets.gh_secret }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.gh_secret }}
