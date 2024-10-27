@@ -31,10 +31,9 @@ jobs:
 
       - name: Publish
         if: success()
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: 'data.json'
           tag_name: "v${{steps.version.outputs.prop}}"
           body_path: 'CHANGELOG.txt'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
