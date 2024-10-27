@@ -27,6 +27,6 @@ jobs:
         with:
           files: 'data.json'
           tag_name: "v${{steps.version.outputs.prop}}"
-          body_path: ${{ github.workspace }}-CHANGELOG.txt
+          body_path: CHANGELOG.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
