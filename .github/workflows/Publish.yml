@@ -1,0 +1,32 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      python_ver: 3.11
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: get version
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+          path: 'data.json'
+          prop_path: 'Version'
+
+      - run: echo ${{steps.version.outputs.prop}} 
+
+      - name: Publish
+        if: success()
+        uses: softprops/action-gh-release@v1
+        with:
+          files: 'data.json'
+          tag_name: "v${{steps.version.outputs.prop}}"
+          body_path: ${{ github.workspace }}-CHANGELOG.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
